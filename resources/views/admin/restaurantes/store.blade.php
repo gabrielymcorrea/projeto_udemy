@@ -1,49 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-Br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <title>Restaurante</title>
-</head>
+@extends('layouts.app')
 
-    <body>
+@section('conteudo')
+    <div class="container">
         <h1>Inserção de Restaurante </h1>
-    <hr>
-    <form action="{{ route('restaurantes.store') }}" method="post" class="table table-striped">
-        {{ csrf_field() }}
-        <p>
-            <label> Nome do Restaurante </label> <br>
-            <input type="text" name="name" value="{{ old('name') }}"> <br>
-            @if($errors->has('name'))
-                {{ $errors->first('name') }}
-        
-            @endif
-        </p>
+        <hr>
+        <form action="{{ route('restaurantes.store') }}" method="post" class="table table-striped">
+            {{ csrf_field() }}
+            <p class="form-group">
+                <label> Nome do Restaurante </label>
+                <input type="text" name="name" value="{{ old('name') }}" class="form-control @if($errors->has('name')) is-invalid @endif">
+                @if($errors->has('name'))
+                    <span class="invalid-feedback">{{ $errors->first('name') }}</span>
+                @endif
+            </p>
 
-        <p>
-            <label> Endereço </label> <br>
-            <input type="text" name="address" value="{{old('address')}}"><br>
-            @if($errors->has('address'))
-                {{ $errors->first('address') }}
-            @endif
-        </p>
+            <p class="form-group">
+                <label> Endereço </label> 
+                <input type="text" name="address" value="{{old('address')}}" class="form-control @if($errors->has('address')) is-invalid @endif">
+                @if($errors->has('address'))
+                    <span class="invalid-feedback">{{ $errors->first('address') }}</span>
+                @endif
+            </p>
 
-        <p>
-            <label> Fale sobre o Restaurante </label> <br>
-            <textarea name="description" id="" cols="30" rows="10"> {{old('description')}}</textarea><br>
-            @if($errors->has('description'))
-                {{$errors->first('description')}}
-            @endif
-        </p>
+            <p class="form-group">
+                <label> Fale sobre o Restaurante </label> 
+                <textarea name="description" id="" cols="30" rows="10" class="form-control @if($errors->has('description')) is-invalid @endif" > {{old('description')}}</textarea>
+                @if($errors->has('description'))
+                    <span class="invalid-feedback">{{$errors->first('description')}}</span>
+                @endif
+            </p>
 
-        <input type="submit" value="Cadastrar">
+            <input type="submit" value="Cadastrar" class="btn btn-success btn-lg">
 
-    </form>
-</body>
-</html>
+        </form>
+    </div>
 
+@endsection
 
 

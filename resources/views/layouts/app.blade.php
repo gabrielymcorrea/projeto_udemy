@@ -12,6 +12,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="/css/style.css">
 
         @livewireStyles
 
@@ -38,7 +39,10 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                @if (session('msg'))
+                    <p class="msg">{{session('msg')}}</p>
+                @endif
+                @yield('conteudo')
             </main>
         </div>
 

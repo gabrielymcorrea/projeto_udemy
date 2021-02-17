@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RestauranteRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,19 +24,18 @@ class RestauranteRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5',
-            'description' => 'required|min:5',
-            'address' => 'required|min:5'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
         ];
     }
 
-
     public function messages(){
         return [
-            'name.required' => 'Campo nome é obrigatorio',
-            'address.required' => 'Campo endereço é obrigatorio',
-            'description.required' => 'Campo descrição é obrigatorio',
-            '.min' => 'Quantidade minima de caracteries é 5'
+            'name.required' => 'Campo nome é obrigatório',
+            'email.required' => 'Campo endereço é obrigatorio',
+            'email.unique' => 'Endereço de email já cadastrado',
+            'password.required' =>'senha obrigatória'
         ];
     }
 }

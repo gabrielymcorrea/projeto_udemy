@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Restaurante;
 use App\Http\Requests\RestauranteRequest;
 
+
 class RestauranteController extends Controller
 {
     public function index(){
@@ -26,9 +27,9 @@ class RestauranteController extends Controller
         $restaurante = new Restaurante();
         $restaurante->create($restauranteData);
 
-        print 'criado';
+        return redirect('admin\restaurantes')->with('msg', 'Criado com sucesso!');
 
-        //dd($request->all());
+
     }
 
     public function edit(Restaurante $restaurante){
@@ -45,7 +46,7 @@ class RestauranteController extends Controller
         $restaurante = Restaurante::findOrFail($id);
         $restaurante->update($restauranteData);
 
-        print 'atualizado';
+        return redirect('admin\restaurantes')->with('msg', 'Atualizado com sucesso!');
     }
 
     public function delete($id){

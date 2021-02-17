@@ -2,8 +2,8 @@
 
 @section('conteudo')
     <div class="container">
-        <h1 class="float-left">Restaurantes</h1>
-        <a href="{{route('restaurantes.new') }}" class="float-right btn btn-success">Novo</a>
+        <h1 class="float-left">Usuários </h1>
+        <a href="{{route('user.new') }}" class="float-right btn btn-success">Novo</a>
 
 
         <table class="table table-striped">
@@ -17,14 +17,14 @@
                 </tr>
                 </thead>
                 <body>
-                    @foreach ($restaurantes as $r)
+                    @foreach ($users as $u)
                     <tr>
-                        <td>{{ $r->id }}</td>
-                        <td>{{ $r->name }}</td>
-                        <td>{{ $r->created_at }}</td>
+                        <td>{{ $u->id }}</td>
+                        <td>{{ $u->name }}</td>
+                        <td>{{ $u->created_at }}</td>
                         <td>
-                            <a href=" {{ route('restaurantes.edit', $r) }} " class="btn btn-primary">EDITAR</a>
-                            <a href=" {{ route('restaurantes.remove', $r) }} " class="btn btn-danger">EXCLUIR</a>
+                            <a href=" {{ route('user.edit', $u) }} " class="btn btn-primary">EDITAR</a>
+                            <a href=" {{ route('user.remove', $u) }} " class="btn btn-danger">EXCLUIR</a>
                         </td>
                     </tr>
                     @endforeach
