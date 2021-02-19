@@ -13,11 +13,11 @@ class CreateTableCardapio extends Migration
      */
     public function up()
     {
-        Schema::create('cardapio', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->float('preco');
-            $table->timestamps();
+            $table->timestamps();    
         });
     }
 
@@ -26,8 +26,9 @@ class CreateTableCardapio extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('cardapio');
+    public function down(){
+        Schema::table('menus', function(Blueprint $table){
+            $table->dropIfExists('menus');        
+        });
     }
 }

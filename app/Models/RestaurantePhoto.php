@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model{
-
+class RestaurantePhoto extends Model
+{
+    protected $table = 'table_restaurante_photos';
     protected $fillable = [
-        'name',
-        'preco',
+        'photo'
     ];
 
-    public function Restaurante(){
+    public function restaurante(){
         return $this->belongsTo(Restaurante::class);
     }
 }

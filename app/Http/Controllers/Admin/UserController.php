@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index(){
-        $users = User::all();
+        //$users = User::all();
+        $users = User::where('id', Auth::user()->id)->get();
         return view('admin.users.index', compact('users'));
     }
 
@@ -27,14 +29,12 @@ class UserController extends Controller
         $user = new User();
         $user->create($userData);
 
-        print 'usuario add com sucesso';
 
-        //dd($request->all());
+        flash('Adicionado com sucesso!')->success();
+        return redirect('admin\users');
     }
 
     public function edit(User $user){
-        //dd($id);
-
         return view('admin.users.edit', compact('user'));
     }
 
@@ -50,13 +50,15 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($userData);
 
-        print 'usuario atualizado';
+        flash('Atualizado com sucesso!')->success();
+        return redirect('admin\users');
     }
 
     public function delete($id){
         $user = User::findOrFail($id);
         $user->delete();
 
-        print 'usuario removido com sucesso';
+        flash('Removido com sucesso!')->success();
+        return redirect('admin\users');
     }
 }

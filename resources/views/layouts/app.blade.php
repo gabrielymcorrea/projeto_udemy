@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,9 +39,7 @@
 
             <!-- Page Content -->
             <main>
-                @if (session('msg'))
-                    <p class="msg">{{session('msg')}}</p>
-                @endif
+                @include('flash::message')
                 @yield('conteudo')
             </main>
         </div>

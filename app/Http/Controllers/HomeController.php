@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Restaurante;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+    
     }
 
     /**
@@ -21,8 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Restaurante $id)
     {
-        return view('home');
+        $restaurantes =  Restaurante::paginate(10);
+        return view('home', compact('restaurantes'));
+    }
+
+    public function get(Restaurante $id){
+        return view('single', compact('id'));
+        //print $id;
     }
 }

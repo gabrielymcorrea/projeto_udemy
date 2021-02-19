@@ -27,8 +27,9 @@ class CreateTableRestaurantes extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('restaurantes');
+    public function down(){
+        Schema::table('restaurantes', function(Blueprint $table){
+            $table->dropIfExists('restaurantes');
+        });
     }
 }

@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('/welcome');
-});
+
 
 Route::group(['middleware' => ['auth']], function(){
 
@@ -29,6 +27,9 @@ Route::group(['middleware' => ['auth']], function(){
             Route::get('edit/{restaurante}','RestauranteController@edit')->name('restaurantes.edit');
             Route::post('update/{id}','RestauranteController@update')->name('restaurantes.update');
             Route::get('remove/{id}','RestauranteController@delete')->name('restaurantes.remove');
+
+            Route::get('/photos/{id}','RestaurantePhotoController@index')->name('restaurantes.photo');
+            Route::post('/photos/{id}','RestaurantePhotoController@save')->name('restaurantes.photo.save');
         });
         
         route::prefix('users')->group(function(){
@@ -39,13 +40,26 @@ Route::group(['middleware' => ['auth']], function(){
             Route::post('update/{id}','UserController@update')->name('user.update');
             Route::get('remove/{id}','UserController@delete')->name('user.remove');
         });
+
+        route::prefix('menus')->group(function(){
+            Route::get('/','MenuController@index')->name('menu.index');
+            Route::get('new','MenuController@new')->name('menu.new');
+            Route::post('store', 'MenuController@store')->name('menu.store');
+            Route::get('edit/{menu}','MenuController@edit')->name('menu.edit');
+            Route::post('update/{id}','MenuController@update')->name('menu.update');
+            Route::get('remove/{id}','MenuController@delete')->name('menu.remove');
+        });
+
     });
 });
 
 
 //Auth::routes();
-
+Route::get('/','HomeController@index')->name('home')->middleware('auth');
+Route::get('/restaurant/{id}', 'HomeController@get')->name('home.single');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+

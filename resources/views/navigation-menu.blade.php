@@ -5,17 +5,18 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
+              
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
+                    <a href="{{route('restaurantes.index')}}" class="nav-link m-4">Restaurantes</a>
+                    <a href="{{route('menu.index')}}" class="nav-link m-4 ">Cardapio</a>
                 </div>
+                
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -50,6 +51,7 @@
                                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                                         <x-jet-dropdown-link href="{{ route('teams.create') }}">
                                             {{ __('Create New Team') }}
+                        
                                         </x-jet-dropdown-link>
                                     @endcan
 
@@ -96,8 +98,8 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                            <x-jet-dropdown-link href="{{ route('user.index') }}">
+                                {{ __('Perfil') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -115,7 +117,7 @@
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Sair') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>

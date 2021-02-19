@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Restaurante;
 use App\Http\Requests\RestauranteRequest;
-
+use Illuminate\Support\Facades\Auth;
 
 class RestauranteController extends Controller
 {
     public function index(){
-        $restaurantes = Restaurante::all();
+
+        //$restaurantes = Restaurante::where('owner_id',  Auth::user()->id)->get();
+        $restaurantes = Auth::user()->restaurantes;
         return view('admin.restaurantes.index', compact('restaurantes'));
     }
 
@@ -20,15 +20,16 @@ class RestauranteController extends Controller
     }
 
     public function store(RestauranteRequest $request){
-        $restauranteData = ($request->all());
+        $restauranteData = $request->all();
 
         $request ->validated();
 
-        $restaurante = new Restaurante();
-        $restaurante->create($restauranteData);
+        $user=Auth::user();
+        $user->restaurantes()->create($restauranteData);
+    
 
-        return redirect('admin\restaurantes')->with('msg', 'Criado com sucesso!');
-
+        flash('Restaurante criado com sucesso')->success();
+        return redirect('admin\restaurantes');
 
     }
 
@@ -39,20 +40,22 @@ class RestauranteController extends Controller
     }
 
     public function update(RestauranteRequest $request, $id){
-        $restauranteData = ($request->all());
+        $restauranteData = $request->all();
 
         $request ->validated();
 
         $restaurante = Restaurante::findOrFail($id);
         $restaurante->update($restauranteData);
 
-        return redirect('admin\restaurantes')->with('msg', 'Atualizado com sucesso!');
+        flash('Atualizado com sucesso!')->success();
+        return redirect('admin\restaurantes');
     }
 
     public function delete($id){
         $restaurante = Restaurante::findOrFail($id);
         $restaurante->delete();
 
-        print 'delete';
+        flash('Removido com sucesso!')->success();
+        return redirect('admin\restaurantes');
     }
 }
